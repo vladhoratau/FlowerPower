@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardView_margin">8dp</dimen>
+    <dimen name="cardView_elevation">8dp</dimen>
+    <dimen name="cardView_cornerRadius">8dp</dimen>
+    <dimen name="card_height">40dp</dimen>
+    <dimen name="card_paddingStart">8dp</dimen>
+</resources>
