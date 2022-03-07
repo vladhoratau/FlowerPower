@@ -11,23 +11,27 @@ import com.example.flowerpower.R
 import com.example.flowerpower.adapters.OrderListAdapter
 import com.example.flowerpower.databinding.FragmentOrderlistBinding
 import com.example.flowerpower.factory.ViewModelFactory
+import com.example.flowerpower.models.Order
 import com.example.flowerpower.repositories.OrderListRepository
 import com.example.flowerpower.services.OrderListService
 import com.example.flowerpower.viewmodel.OrderListViewModel
 
-class OrderListFragment : Fragment() {
+class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
     companion object {
-        private val TAG: String = OrderListFragment::class.java.canonicalName
-        fun newInstance() = OrderListFragment
+        private val TAG: String? = OrderListFragment::class.java.canonicalName
     }
 
     lateinit var viewModel: OrderListViewModel
     private val orderListService = OrderListService.getInstance()
     var binding: FragmentOrderlistBinding? = null
-    private val adapter = OrderListAdapter()
+    private var adapter = OrderListAdapter(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentOrderlistBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, ViewModelFactory(OrderListRepository(orderListService)))
             .get(OrderListViewModel::class.java)
@@ -47,4 +51,16 @@ class OrderListFragment : Fragment() {
         })
         viewModel.getOrderList()
     }
+
+    override fun onItemClick(order: Order) {
+        val bundle = Bundle()
+        bundle.putSerializable(getString(R.string.PASSED_ORDER), order)
+        val transaction = this.parentFragmentManager.beginTransaction()
+        val orderDetailedViewFragment = OrderDetailedViewFragment()
+        orderDetailedViewFragment.arguments = bundle
+        transaction.replace(R.id.fragmentContainer, orderDetailedViewFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }

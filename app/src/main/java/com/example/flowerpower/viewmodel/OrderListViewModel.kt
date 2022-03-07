@@ -13,6 +13,7 @@ class OrderListViewModel constructor(private val orderListRepository: OrderListR
     ViewModel() {
     companion object {
         private val TAG: String = OrderListViewModel::class.java.canonicalName
+        const val RESPONSE_SUCCESSFUL = "Order list get request successful"
     }
 
     val orderList = MutableLiveData<List<Order>>()
@@ -22,7 +23,7 @@ class OrderListViewModel constructor(private val orderListRepository: OrderListR
         response?.enqueue(object : Callback<List<Order>> {
             override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
                 orderList.postValue(response.body())
-                Log.d(TAG, "response succesfull")
+                Log.d(TAG, RESPONSE_SUCCESSFUL)
             }
 
             override fun onFailure(call: Call<List<Order>>, t: Throwable) {

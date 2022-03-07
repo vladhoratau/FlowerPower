@@ -4,5 +4,8 @@
     <dimen name="cardView_elevation">8dp</dimen>
     <dimen name="cardView_cornerRadius">8dp</dimen>
     <dimen name="card_height">40dp</dimen>
-    <dimen name="card_paddingStart">8dp</dimen>
+    <dimen name="card_paddingStart">10dp</dimen>
+    <dimen name="card_paddingTop">100dp</dimen>
+    <dimen name="detailedView_paddingTop">50dp</dimen>
+    <dimen name="detailedView_paddingStart">10dp</dimen>
 </resources>

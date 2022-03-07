@@ -1,8 +1,9 @@
 package com.example.flowerpower.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Order {
+class Order : Serializable {
 
     @SerializedName("id")
     val orderID: String? = null
@@ -15,4 +16,7 @@ class Order {
 
     @SerializedName("deliver_to")
     val deliverTo: String? = null
+
+    @SerializedName("status")
+    val status: String? = null
 }

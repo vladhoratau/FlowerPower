@@ -4,8 +4,8 @@
     <string name="BASE_URL">https://demo6394362.mockable.io/endpoint_orders</string>
     <string name="MODEL_CLASS_ERROR">"ViewModel Not Found"</string>
     <string name="ORDER_LIST_UPDATED">"Order list updated"</string>
-    <string name="ORDER_ID_TEXT">"OrderID: #"</string>
-    <string name="ORDER_DESCRIPTION_TEXT">Description:"</string>
-    <string name="ORDER_PRICE_TEXT">"Price:"</string>
-    <string name="ORDER_DELIVER_TO_TEXT">"Deliver to"</string>
+    <string name="PASSED_ORDER">"PASSED_ORDER"</string>
+    <string name="ORDER_DESCRIPTION_TEXT">"Description: "</string>
+    <string name="ORDER_PRICE_TEXT">"Price: "</string>
+    <string name="ORDER_DELIVER_TO_TEXT">"Deliver to: "</string>
 </resources>

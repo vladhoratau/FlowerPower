@@ -15,11 +15,13 @@ interface OrderListService {
     fun getOrderList(): Call<List<Order>>
 
     companion object {
+        const val BASE_URL = "https://demo6394362.mockable.io/"
         var orderListService: OrderListService? = null
+
         fun getInstance(): OrderListService? {
             if (orderListService == null) {
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("https://demo6394362.mockable.io/")
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 orderListService = retrofit.create(OrderListService::class.java)
