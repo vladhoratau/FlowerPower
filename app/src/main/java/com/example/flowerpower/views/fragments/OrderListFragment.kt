@@ -20,6 +20,10 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
     companion object {
         private val TAG: String? = OrderListFragment::class.java.canonicalName
+
+        fun newInstance(): OrderListFragment {
+            return OrderListFragment()
+        }
     }
 
     lateinit var viewModel: OrderListViewModel
@@ -56,9 +60,9 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         val bundle = Bundle()
         bundle.putSerializable(getString(R.string.PASSED_ORDER), order)
         val transaction = this.parentFragmentManager.beginTransaction()
-        val orderDetailedViewFragment = OrderDetailedViewFragment()
-        orderDetailedViewFragment.arguments = bundle
-        transaction.replace(R.id.fragmentContainer, orderDetailedViewFragment)
+        val orderListFragment = OrderDetailedViewFragment.newInstance()
+        orderListFragment.arguments = bundle
+        transaction.replace(R.id.fragmentContainer, orderListFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

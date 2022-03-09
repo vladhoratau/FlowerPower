@@ -14,6 +14,10 @@ class OrderDetailedViewFragment : Fragment() {
 
     companion object {
         private val TAG: String = OrderDetailedViewFragment::class.java.canonicalName
+
+        fun newInstance() : OrderDetailedViewFragment {
+            return OrderDetailedViewFragment()
+        }
     }
 
     var binding: FragmentOrderDetailedViewBinding? = null
