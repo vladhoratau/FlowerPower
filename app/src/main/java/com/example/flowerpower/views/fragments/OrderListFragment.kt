@@ -5,15 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.flowerpower.R
 import com.example.flowerpower.adapters.OrderListAdapter
 import com.example.flowerpower.databinding.FragmentOrderlistBinding
 import com.example.flowerpower.factory.ViewModelFactory
 import com.example.flowerpower.models.Order
-import com.example.flowerpower.repositories.OrderListRepository
-import com.example.flowerpower.services.OrderListService
+import com.example.flowerpower.utils.InternetUtils
+import com.example.flowerpower.viewmodel.DBOrderListViewModel
 import com.example.flowerpower.viewmodel.OrderListViewModel
 
 class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
@@ -26,8 +28,12 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         }
     }
 
-    lateinit var viewModel: OrderListViewModel
-    private val orderListService = OrderListService.getInstance()
+    private val orderListViewModel: OrderListViewModel by viewModels {
+        ViewModelFactory()
+    }
+    private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
+        ViewModelFactory()
+    }
     var binding: FragmentOrderlistBinding? = null
     private var adapter = OrderListAdapter(this)
 
@@ -37,8 +43,6 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrderlistBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this, ViewModelFactory(OrderListRepository(orderListService)))
-            .get(OrderListViewModel::class.java)
         binding?.orderListRecycleView?.adapter = adapter
         return binding?.root
     }
@@ -46,14 +50,6 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         orderListUpdateObserver()
-    }
-
-    private fun orderListUpdateObserver() {
-        viewModel.orderList.observe(viewLifecycleOwner, {
-            Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
-            adapter.setOrderList(it)
-        })
-        viewModel.getOrderList()
     }
 
     override fun onItemClick(order: Order) {
@@ -67,4 +63,26 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         transaction.commit()
     }
 
+    private fun orderListUpdateObserver() {
+        if (InternetUtils.isInternetConnection(context)) {
+            Log.d("Vlad", "Internet")
+            orderListViewModel.orderList.observe(viewLifecycleOwner, {
+                Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
+                adapter.setOrderList(it)
+            })
+            orderListViewModel.getOrderList()
+        } else {
+            getDBOrderList()
+            Toast.makeText(context, getString(R.string.NO_INTERNET), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getDBOrderList() {
+        dbOrderListViewModel.getAllDBOrders().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                for (item in it)
+                    adapter.setOrderList(it)
+            }
+        })
+    }
 }

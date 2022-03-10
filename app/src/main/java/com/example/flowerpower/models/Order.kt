@@ -1,22 +1,32 @@
 package com.example.flowerpower.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "orders_table")
 class Order : Serializable {
 
+    @PrimaryKey
+    @ColumnInfo(name = "orderID")
     @SerializedName("id")
-    val orderID: String? = null
+    var orderID: String = "0"
 
+    @ColumnInfo(name = "description")
     @SerializedName("description")
-    val description: String? = null
+    var description: String ?= null
 
+    @ColumnInfo(name = "price")
     @SerializedName("price")
-    val price: Double? = null
+    var price: Double?= null
 
+    @ColumnInfo(name = "deliver_to")
     @SerializedName("deliver_to")
-    val deliverTo: String? = null
+    var deliverTo: String?= null
 
+    @ColumnInfo(name = "status")
     @SerializedName("status")
-    val status: String? = null
+    var status: String?= null
 }
