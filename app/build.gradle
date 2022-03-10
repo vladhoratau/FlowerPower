@@ -56,10 +56,6 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    //Flipper
-    debugImplementation 'com.facebook.flipper:flipper:0.138.1-SNAPSHOT'
-    debugImplementation 'com.facebook.soloader:soloader:0.10.1'
-
     releaseImplementation 'com.facebook.flipper:flipper-noop:0.138.1-SNAPSHOT'
 
     implementation "androidx.activity:activity-ktx:1.4.0"

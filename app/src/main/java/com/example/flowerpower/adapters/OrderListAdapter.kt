@@ -4,19 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.flowerpower.R
 import com.example.flowerpower.databinding.AdapterOrderlistBinding
 import com.example.flowerpower.models.Order
+import com.example.flowerpower.utils.ApplicationClass
 
 class OrderListAdapter(
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<OrderListAdapter.OrderListViewHolder>() {
 
     private var orders = mutableListOf<Order>()
-
-    companion object {
-        const val ORDER_ID_TEXT = "OrderID: #"
-        const val ORDER_STATUS_TEXT = "Status: "
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,8 +23,8 @@ class OrderListAdapter(
 
     override fun onBindViewHolder(holder: OrderListViewHolder, position: Int) {
         val order = orders[position]
-        holder.binding.orderID.text = ORDER_ID_TEXT + order.orderID
-        holder.binding.orderStatus.text = ORDER_STATUS_TEXT + order.status
+        holder.binding.orderID.text = ApplicationClass.instance.getString(R.string.ORDER_ID_TEXT) + order.orderID
+        holder.binding.orderStatus.text = ApplicationClass.instance.getString(R.string.ORDER_STATUS_TEXT) + order.status
     }
 
 

@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.flowerpower.R
-import com.example.flowerpower.adapters.OrderListAdapter
 import com.example.flowerpower.databinding.FragmentOrderDetailedViewBinding
 import com.example.flowerpower.models.Order
+import com.example.flowerpower.utils.ApplicationClass
 
 class OrderDetailedViewFragment : Fragment() {
 
     companion object {
         private val TAG: String = OrderDetailedViewFragment::class.java.canonicalName
 
-        fun newInstance() : OrderDetailedViewFragment {
+        fun newInstance(): OrderDetailedViewFragment {
             return OrderDetailedViewFragment()
         }
     }
@@ -35,12 +35,12 @@ class OrderDetailedViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.orderID?.text = OrderListAdapter.ORDER_ID_TEXT + order.orderID
+        binding?.orderID?.text = ApplicationClass.instance.getString(R.string.ORDER_ID_TEXT) + order.orderID
         binding?.orderDescription?.text =
             getString(R.string.ORDER_DESCRIPTION_TEXT) + order.description
         binding?.orderPrice?.text = getString(R.string.ORDER_PRICE_TEXT) + order.price.toString()
         binding?.deliverTo?.text = getString(R.string.ORDER_DELIVER_TO_TEXT) + order.deliverTo
-        binding?.orderStatus?.text = OrderListAdapter.ORDER_STATUS_TEXT + order.status
+        binding?.orderStatus?.text = ApplicationClass.instance.getString(R.string.ORDER_STATUS_TEXT) + order.status
     }
 }
 

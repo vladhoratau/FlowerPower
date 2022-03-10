@@ -5,12 +5,15 @@
     <string name="MODEL_CLASS_ERROR">"ViewModel Not Found"</string>
     <string name="ORDER_LIST_UPDATED">"Order list updated"</string>
     <string name="PASSED_ORDER">"PASSED_ORDER"</string>
-    <string name="ORDER_DESCRIPTION_TEXT">"Description: "</string>
+    <string name="ORDER_ID_TEXT">"OrderID: # "</string>
+    <string name="ORDER_STATUS_TEXT">"Price: "</string>
+    <string name="ORDER_DESCRIPTION_TEXT">"Status: "</string>
     <string name="ORDER_PRICE_TEXT">"Price: "</string>
     <string name="ORDER_DELIVER_TO_TEXT">"Deliver to: "</string>
     <string name ="INSERT_ORDER">Insert order into DB successfully</string>
     <string name ="UPDATE_ORDER">Update order into DB successfully</string>
     <string name ="DELETE_ORDER">Delete order from DB successfully</string>
     <string name ="GET_ORDERS">Get all orders from DB successfully</string>
-    <string name ="NO_INTERNET">There is no internet connection. Retrieving last order list</string>
+    <string name ="DB_DATA">There is no internet connection. Retrieving last order list from the local DB</string>
+    <string name ="BACKEND_DATA">Retrieving data from the backend</string>
 </resources>

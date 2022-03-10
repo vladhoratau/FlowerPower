@@ -28,14 +28,16 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         }
     }
 
+    var binding: FragmentOrderlistBinding? = null
+    private var adapter = OrderListAdapter(this)
+
     private val orderListViewModel: OrderListViewModel by viewModels {
         ViewModelFactory()
     }
+
     private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
         ViewModelFactory()
     }
-    var binding: FragmentOrderlistBinding? = null
-    private var adapter = OrderListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +67,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
     private fun orderListUpdateObserver() {
         if (InternetUtils.isInternetConnection(context)) {
-            Log.d("Vlad", "Internet")
+            Log.d(TAG, getString(R.string.BACKEND_DATA))
             orderListViewModel.orderList.observe(viewLifecycleOwner, {
                 Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
                 adapter.setOrderList(it)
@@ -73,7 +75,8 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
             orderListViewModel.getOrderList()
         } else {
             getDBOrderList()
-            Toast.makeText(context, getString(R.string.NO_INTERNET), Toast.LENGTH_SHORT).show()
+            Log.d(TAG, getString(R.string.DB_DATA))
+            Toast.makeText(context, getString(R.string.DB_DATA), Toast.LENGTH_SHORT).show()
         }
     }
 
