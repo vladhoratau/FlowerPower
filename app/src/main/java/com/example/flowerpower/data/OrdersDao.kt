@@ -13,6 +13,9 @@ interface OrdersDao {
     @Update
     suspend fun update(order: Order)
 
+    @Update
+    suspend fun updateOrders(orders: List<Order>)
+
     @Delete
     suspend fun delete(order: Order)
 

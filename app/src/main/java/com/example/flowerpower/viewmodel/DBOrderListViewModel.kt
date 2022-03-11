@@ -37,6 +37,11 @@ class DBOrderListViewModel(application: Application) : ViewModel() {
         Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDER))
     }
 
+    fun updateOrders(orders: List<Order>) = viewModelScope.launch(Dispatchers.IO) {
+        repository.updateOrders(orders)
+        Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDERS))
+    }
+
     fun deleteOrder(order: Order) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(order)
         Log.d(TAG, ApplicationClass.instance.getString(R.string.DELETE_ORDER))

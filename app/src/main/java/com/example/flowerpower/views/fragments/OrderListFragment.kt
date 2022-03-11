@@ -1,6 +1,8 @@
 package com.example.flowerpower.views.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
     var binding: FragmentOrderlistBinding? = null
     private var adapter = OrderListAdapter(this)
+    private var orders = mutableListOf<Order>()
 
     private val orderListViewModel: OrderListViewModel by viewModels {
         ViewModelFactory()
@@ -52,6 +55,20 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         orderListUpdateObserver()
+        dbOrderListViewModel.updateOrders(orders)
+
+        binding?.searchEditText?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                adapter.filter.filter(binding?.searchEditText?.text)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        }
+        )
     }
 
     override fun onItemClick(order: Order) {
@@ -71,6 +88,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
             orderListViewModel.orderList.observe(viewLifecycleOwner, {
                 Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
                 adapter.setOrderList(it)
+                orders.addAll(it)
             })
             orderListViewModel.getOrderList()
         } else {

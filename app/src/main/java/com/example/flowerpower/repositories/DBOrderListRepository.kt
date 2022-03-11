@@ -27,6 +27,10 @@ class DBOrderListRepository(private val ordersDao: OrdersDao) {
 
     suspend fun update(order: Order) {
         ordersDao.update(order)
-        Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDER))
+        Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDERS))
+    }
+
+    suspend fun updateOrders(orders: List<Order>) {
+        ordersDao.updateOrders(orders)
     }
 }
