@@ -1,9 +1,7 @@
 package com.example.flowerpower.views.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.flowerpower.R
@@ -12,6 +10,8 @@ import com.example.flowerpower.factory.ViewModelFactory
 import com.example.flowerpower.models.Order
 import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.ApplicationClass
+import com.example.flowerpower.utils.InternetUtils
+import com.example.flowerpower.utils.ToastMessage
 import com.example.flowerpower.viewmodel.DBOrderListViewModel
 import com.google.android.material.textview.MaterialTextView
 
@@ -38,7 +38,13 @@ class OrderDetailedViewFragment : Fragment() {
     ): View? {
         binding = FragmentOrderDetailedViewBinding.inflate(layoutInflater)
         order = arguments?.getSerializable(getString(R.string.PASSED_ORDER)) as Order
+        setHasOptionsMenu(true)
         return binding?.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.detailed_view_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,14 +69,26 @@ class OrderDetailedViewFragment : Fragment() {
         } else if (order.status == Status.Pending) {
             binding?.changeStatusButton?.text = ApplicationClass.instance.getString(R.string.DELIVERED_ORDER)
         }
+        else {
+            binding?.changeStatusButton?.visibility = View.GONE
+        }
+
         binding?.changeStatusButton?.setOnClickListener {
             updateOrderStatus()
         }
 
-        binding?.backButton?.setOnClickListener {
-            val orderListFragment = OrderListFragment()
-            replaceFragment(orderListFragment)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.back -> {
+                if (InternetUtils.isInternetConnection(context)) {
+                    val orderListFragment = OrderListFragment()
+                    replaceFragment(orderListFragment)
+                }
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun updateOrderStatus() {

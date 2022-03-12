@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingStart="@dimen/card_paddingStart"
     android:paddingLeft="@dimen/card_paddingStart"
@@ -49,13 +50,5 @@
         android:layout_marginEnd="@dimen/button_marginEnd"
         android:layout_marginLeft="@dimen/button_marginStart"
         android:layout_marginRight="@dimen/button_marginEnd" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/button_marginStart"
-        android:text="Back"
-        android:layout_marginLeft="@dimen/button_marginEnd" />
 
 </LinearLayout>

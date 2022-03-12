@@ -21,4 +21,5 @@
     <string name ="SEARCH_ORDER">Search order</string>
     <string name= "PENDING_ORDER">Mark order as pending</string>
     <string name= "DELIVERED_ORDER">Mark order as delivered</string>
+    <string name= "DATA_UPDATED">Data updated from the backend"</string>
 </resources>
