@@ -9,7 +9,9 @@
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search_order"
+        android:paddingStart="@dimen/card_paddingStart"
+        android:paddingEnd="@dimen/card_paddingStart"
+        android:hint="@string/SEARCH_ORDER"
         android:drawableEnd="@drawable/search_button"
         app:endIconMode="custom"
         android:drawableRight="@drawable/search_button" />

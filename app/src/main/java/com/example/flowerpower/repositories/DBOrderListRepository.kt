@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.example.flowerpower.R
 import com.example.flowerpower.data.OrdersDao
 import com.example.flowerpower.models.Order
+import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.ApplicationClass
 
 class DBOrderListRepository(private val ordersDao: OrdersDao) {
@@ -15,22 +16,21 @@ class DBOrderListRepository(private val ordersDao: OrdersDao) {
         private val TAG: String = DBOrderListRepository::class.java.canonicalName
     }
 
-    suspend fun insert(order: Order) {
-        ordersDao.insert(order)
-        Log.d(TAG, ApplicationClass.instance.getString(R.string.INSERT_ORDER))
-    }
-
-    suspend fun delete(order: Order) {
-        ordersDao.delete(order)
-        Log.d(TAG, ApplicationClass.instance.getString(R.string.DELETE_ORDER))
-    }
-
-    suspend fun update(order: Order) {
-        ordersDao.update(order)
-        Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDERS))
+    suspend fun updateStatus(orderID: String, status: Status) {
+        ordersDao.updateStatus(orderID, status.toString())
     }
 
     suspend fun updateOrders(orders: List<Order>) {
-        ordersDao.updateOrders(orders)
+        for (order in orders) {
+            this.update(order)
+        }
+    }
+
+    private suspend fun update(order: Order) {
+        val result = ordersDao.insert(order)
+        if (result == -1L) {
+            ordersDao.update(order.orderID, order.description, order.price, order.deliverTo)
+        }
+        Log.d(TAG, ApplicationClass.instance.getString(R.string.UPDATE_ORDERS))
     }
 }

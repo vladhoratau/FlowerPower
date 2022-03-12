@@ -16,17 +16,16 @@ class Order : Serializable {
 
     @ColumnInfo(name = "description")
     @SerializedName("description")
-    var description: String ?= null
+    var description: String? = null
 
     @ColumnInfo(name = "price")
     @SerializedName("price")
-    var price: Double?= null
+    var price: Double? = null
 
     @ColumnInfo(name = "deliver_to")
     @SerializedName("deliver_to")
-    var deliverTo: String?= null
+    var deliverTo: String? = null
 
     @ColumnInfo(name = "status")
-    @SerializedName("status")
-    var status: String?= null
+    var status: Status? = Status.New
 }
