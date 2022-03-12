@@ -6,7 +6,7 @@
     <string name="GET_REQUEST_SUCCESSFUL">"Order list get request successful"</string>
     <string name="ORDER_LIST_UPDATED">"Order list updated"</string>
     <string name="PASSED_ORDER">"PASSED_ORDER"</string>
-    <string name="ORDER_ID_TEXT">"OrderID: #"</string>
+    <string name="ORDER_ID_TEXT">"Order #"</string>
     <string name="ORDER_STATUS_TEXT">"Status: "</string>
     <string name="ORDER_DESCRIPTION_TEXT">"Description: "</string>
     <string name="ORDER_PRICE_TEXT">"Price: "</string>

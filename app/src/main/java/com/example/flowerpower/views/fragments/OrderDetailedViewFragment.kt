@@ -64,17 +64,11 @@ class OrderDetailedViewFragment : Fragment() {
         )
         updateTextView(ApplicationClass.instance.getString(R.string.ORDER_STATUS_TEXT) + order.status, binding?.status)
 
-        if (order.status == Status.New) {
-            binding?.changeStatusButton?.text = ApplicationClass.instance.getString(R.string.PENDING_ORDER)
-        } else if (order.status == Status.Pending) {
-            binding?.changeStatusButton?.text = ApplicationClass.instance.getString(R.string.DELIVERED_ORDER)
-        }
-        else {
-            binding?.changeStatusButton?.visibility = View.GONE
-        }
+        updateButtonText()
 
         binding?.changeStatusButton?.setOnClickListener {
             updateOrderStatus()
+            updateButtonText()
         }
 
     }
@@ -99,6 +93,20 @@ class OrderDetailedViewFragment : Fragment() {
         }
         order.status?.let { dbOrderListViewModel.updateOrderStatus(order.orderID, it) }
         updateTextView(ApplicationClass.instance.getString(R.string.ORDER_STATUS_TEXT) + order.status, binding?.status)
+    }
+
+    private fun updateButtonText() {
+        when (order.status) {
+            Status.New -> {
+                binding?.changeStatusButton?.text = ApplicationClass.instance.getString(R.string.PENDING_ORDER)
+            }
+            Status.Pending -> {
+                binding?.changeStatusButton?.text = ApplicationClass.instance.getString(R.string.DELIVERED_ORDER)
+            }
+            else -> {
+                binding?.changeStatusButton?.visibility = View.GONE
+            }
+        }
     }
 
     private fun updateTextView(text: String, view: MaterialTextView?) {
