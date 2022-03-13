@@ -10,7 +10,6 @@ import com.example.flowerpower.databinding.FragmentOrderDetailedViewBinding
 import com.example.flowerpower.factory.ViewModelFactory
 import com.example.flowerpower.models.Order
 import com.example.flowerpower.models.Status
-import com.example.flowerpower.utils.InternetUtils
 import com.example.flowerpower.utils.Navigator
 import com.example.flowerpower.viewmodel.DBOrderListViewModel
 import com.google.android.material.textview.MaterialTextView
@@ -83,9 +82,7 @@ class OrderDetailedViewFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.back -> {
-                if (InternetUtils.isInternetConnection(context)) {
-                    navigator.replaceFragment(OrderListFragment.newInstance(), this.activity)
-                }
+                navigator.replaceFragment(OrderListFragment.newInstance(), this.activity)
             }
         }
         return super.onOptionsItemSelected(item)

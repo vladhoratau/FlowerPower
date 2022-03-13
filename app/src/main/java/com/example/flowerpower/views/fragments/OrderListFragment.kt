@@ -88,6 +88,9 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
                     orderListViewModel.getOrderList()
                     ToastMessage.showMessage(getString(R.string.DATA_UPDATED))
                 }
+                else {
+                    ToastMessage.showMessage(getString(R.string.NO_INTERNET))
+                }
             }
         }
         return super.onOptionsItemSelected(item)

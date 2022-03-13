@@ -24,4 +24,5 @@
     <string name="DATA_UPDATED">Data updated from the backend"</string>
     <string name="STATUS_UPDATED">Order status successfully updated"</string>
     <string name="CURRENCY"> RON"</string>
+    <string name="NO_INTERNET">There is no internet connection</string>
 </resources>
