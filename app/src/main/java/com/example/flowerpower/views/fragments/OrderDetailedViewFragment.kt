@@ -25,7 +25,7 @@ class OrderDetailedViewFragment : Fragment() {
         }
     }
 
-    var binding: FragmentOrderDetailedViewBinding? = null
+    private var binding: FragmentOrderDetailedViewBinding? = null
     private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
         ViewModelFactory()
     }
@@ -78,7 +78,6 @@ class OrderDetailedViewFragment : Fragment() {
             updateOrderStatus()
             updateButtonText()
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

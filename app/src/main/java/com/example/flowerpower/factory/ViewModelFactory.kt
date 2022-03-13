@@ -11,14 +11,18 @@ import com.example.flowerpower.viewmodel.OrderListViewModel
 class ViewModelFactory :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(OrderListViewModel::class.java)) {
-            OrderListViewModel() as T
-        } else if (modelClass.isAssignableFrom(DBOrderListViewModel::class.java)) {
-           DBOrderListViewModel(ApplicationClass.instance) as T
-        } else {
-            throw IllegalAccessException(
-                Resources.getSystem().getString(R.string.MODEL_CLASS_ERROR)
-            )
+        return when {
+            modelClass.isAssignableFrom(OrderListViewModel::class.java) -> {
+                OrderListViewModel() as T
+            }
+            modelClass.isAssignableFrom(DBOrderListViewModel::class.java) -> {
+                DBOrderListViewModel(ApplicationClass.instance) as T
+            }
+            else -> {
+                throw IllegalAccessException(
+                    Resources.getSystem().getString(R.string.MODEL_CLASS_ERROR)
+                )
+            }
         }
     }
 

@@ -19,7 +19,7 @@ class DBOrderListViewModel(application: Application) : ViewModel() {
     private val repository: DBOrderListRepository
 
     companion object {
-        private val TAG: String = DBOrderListViewModel::class.java.canonicalName
+        private val TAG: String? = DBOrderListViewModel::class.java.canonicalName
     }
 
     init {

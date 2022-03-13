@@ -10,11 +10,11 @@ import com.example.flowerpower.utils.ApplicationClass
 
 class DBOrderListRepository(private val ordersDao: OrdersDao) {
 
-    val orderList: LiveData<List<Order>> = ordersDao.getAllOrders()
-
     companion object {
-        private val TAG: String = DBOrderListRepository::class.java.canonicalName
+        private val TAG: String? = DBOrderListRepository::class.java.canonicalName
     }
+
+    val orderList: LiveData<List<Order>> = ordersDao.getAllOrders()
 
     suspend fun updateStatus(orderID: String, status: Status) {
         ordersDao.updateStatus(orderID, status.toString())

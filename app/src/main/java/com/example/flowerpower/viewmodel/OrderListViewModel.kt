@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flowerpower.R
 import com.example.flowerpower.models.Order
+import com.example.flowerpower.repositories.DBOrderListRepository
 import com.example.flowerpower.repositories.OrderListRepository
 import com.example.flowerpower.services.OrderListService
 import com.example.flowerpower.utils.ApplicationClass
@@ -15,11 +16,11 @@ import retrofit2.Response
 class OrderListViewModel :
     ViewModel() {
     companion object {
-        private val TAG: String = OrderListViewModel::class.java.canonicalName
+        private val TAG: String? = OrderListViewModel::class.java.canonicalName
     }
 
+    private val orderListRepository : OrderListRepository = OrderListRepository(OrderListService.getInstance())
     val orderList = MutableLiveData<List<Order>>()
-    private val orderListRepository = OrderListRepository(OrderListService.getInstance())
 
     fun getOrderList() {
         val response = orderListRepository.getOrderList()

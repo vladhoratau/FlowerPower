@@ -15,6 +15,7 @@ import com.example.flowerpower.factory.ViewModelFactory
 import com.example.flowerpower.models.Order
 import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.InternetUtils
+import com.example.flowerpower.utils.Navigator
 import com.example.flowerpower.utils.ToastMessage
 import com.example.flowerpower.viewmodel.DBOrderListViewModel
 import com.example.flowerpower.viewmodel.OrderListViewModel
@@ -29,7 +30,8 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         }
     }
 
-    var binding: FragmentOrderlistBinding? = null
+    private val navigator = Navigator()
+    private var binding: FragmentOrderlistBinding? = null
     private var adapter = OrderListAdapter(this)
     private var orders = mutableListOf<Order>()
 
@@ -41,6 +43,11 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         ViewModelFactory()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,7 +55,6 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     ): View? {
         binding = FragmentOrderlistBinding.inflate(layoutInflater)
         binding?.orderListRecycleView?.adapter = adapter
-        setHasOptionsMenu(true);
         return binding?.root
     }
 
@@ -90,12 +96,9 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     override fun onItemClick(order: Order) {
         val bundle = Bundle()
         bundle.putSerializable(getString(R.string.PASSED_ORDER), order)
-        val transaction = this.parentFragmentManager.beginTransaction()
         val orderListFragment = OrderDetailedViewFragment.newInstance()
         orderListFragment.arguments = bundle
-        transaction.replace(R.id.fragmentContainer, orderListFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        navigator.replaceFragment(orderListFragment, activity)
     }
 
     private fun orderListUpdateObserver() {
