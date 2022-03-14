@@ -9,24 +9,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 
-interface OrderListService {
+interface OrdersService {
 
     @GET("orders")
-    fun getOrderList(): Call<List<Order>>
+    fun getOrders(): Call<List<Order>>
 
     companion object {
-        val BASE_URL = ApplicationClass.instance.getString(R.string.BASE_URL)
-        var orderListService: OrderListService? = null
+        private val BASE_URL = ApplicationClass.instance.getString(R.string.BASE_URL)
+        private var ordersService: OrdersService? = null
 
-        fun getInstance(): OrderListService? {
-            if (orderListService == null) {
+        fun getInstance(): OrdersService? {
+            if (ordersService == null) {
                 val retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-                orderListService = retrofit.create(OrderListService::class.java)
+                ordersService = retrofit.create(OrdersService::class.java)
             }
-            return orderListService
+            return ordersService
         }
     }
 }

@@ -17,7 +17,7 @@ import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.InternetUtils
 import com.example.flowerpower.utils.Navigator
 import com.example.flowerpower.utils.ToastMessage
-import com.example.flowerpower.viewmodel.DBOrderListViewModel
+import com.example.flowerpower.viewmodel.DBOrdersViewModel
 import com.example.flowerpower.viewmodel.OrderListViewModel
 
 class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
@@ -39,7 +39,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
         ViewModelFactory()
     }
 
-    private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
+    private val dbOrdersViewModel: DBOrdersViewModel by viewModels {
         ViewModelFactory()
     }
 
@@ -77,8 +77,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
             override fun afterTextChanged(p0: Editable?) {
             }
-        }
-        )
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -110,15 +109,15 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
             orderListViewModel.getOrderList()
         }
 
-        orderListViewModel.orderList.observe(viewLifecycleOwner, {
+        orderListViewModel.orders.observe(viewLifecycleOwner, {
             Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
             orders.clear()
             orders.addAll(it)
             adapter.setOrderList(orders)
-            dbOrderListViewModel.updateOrders(orders)
+            dbOrdersViewModel.updateOrders(orders)
         })
 
-        dbOrderListViewModel.getAllDBOrders().observe(viewLifecycleOwner, {
+        dbOrdersViewModel.getOrders().observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 if (!InternetUtils.isInternetConnection(context)) {
                     adapter.setOrderList(it)

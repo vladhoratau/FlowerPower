@@ -11,7 +11,7 @@ import com.example.flowerpower.factory.ViewModelFactory
 import com.example.flowerpower.models.Order
 import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.Navigator
-import com.example.flowerpower.viewmodel.DBOrderListViewModel
+import com.example.flowerpower.viewmodel.DBOrdersViewModel
 import com.google.android.material.textview.MaterialTextView
 
 class OrderDetailedViewFragment : Fragment() {
@@ -25,7 +25,7 @@ class OrderDetailedViewFragment : Fragment() {
     }
 
     private var binding: FragmentOrderDetailedViewBinding? = null
-    private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
+    private val dbOrdersViewModel: DBOrdersViewModel by viewModels {
         ViewModelFactory()
     }
     private lateinit var order: Order
@@ -56,20 +56,23 @@ class OrderDetailedViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateTextView(getString(R.string.ORDER_ID_TEXT) + order.orderID, binding?.orderID)
+        updateTextView(getString(R.string.ORDER_ID_TEXT)} ${order.orderID}"", binding?.orderID)
         updateTextView(
             getString(R.string.ORDER_DESCRIPTION_TEXT) + order.description,
             binding?.orderDescription
         )
         updateTextView(
-            getString(R.string.ORDER_PRICE_TEXT) + order.price.toString() + getString(R.string.CURRENCY),
+            "${getString(R.string.ORDER_PRICE_TEXT)} ${order.price.toString()} ${getString(R.string.CURRENCY)}",
             binding?.orderPrice
         )
         updateTextView(
-            getString(R.string.ORDER_DELIVER_TO_TEXT) + order.deliverTo,
+            "${getString(R.string.ORDER_DELIVER_TO_TEXT)} ${order.deliverTo}",
             binding?.deliverTo
         )
-        updateTextView(getString(R.string.ORDER_STATUS_TEXT) + order.status, binding?.status)
+        updateTextView(
+            "${getString(R.string.ORDER_STATUS_TEXT)} ${order.status}",
+            binding?.status
+        )
 
         updateButtonText()
 
@@ -92,10 +95,13 @@ class OrderDetailedViewFragment : Fragment() {
         when (order.status) {
             Status.New -> order.status = Status.Pending
             Status.Pending -> order.status = Status.Delivered
-            null -> Status.New
+            else -> Status.New
         }
-        order.status?.let { dbOrderListViewModel.updateOrderStatus(order.orderID, it) }
-        updateTextView(getString(R.string.ORDER_STATUS_TEXT) + order.status, binding?.status)
+        order.status?.let { dbOrdersViewModel.updateOrderStatus(order.orderID, it) }
+        updateTextView(
+            "${getString(R.string.ORDER_STATUS_TEXT)} ${order.status}",
+            binding?.status
+        )
         Log.d(TAG, getString(R.string.STATUS_UPDATED))
     }
 

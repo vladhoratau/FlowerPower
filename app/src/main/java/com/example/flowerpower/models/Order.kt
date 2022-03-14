@@ -6,13 +6,13 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-@Entity(tableName = "orders_table")
+@Entity(tableName = "orders")
 class Order : Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "orderID")
     @SerializedName("id")
-    var orderID: String = "0"
+    lateinit var orderID: String
 
     @ColumnInfo(name = "description")
     @SerializedName("description")

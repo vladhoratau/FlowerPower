@@ -5,28 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flowerpower.R
 import com.example.flowerpower.models.Order
-import com.example.flowerpower.repositories.DBOrderListRepository
-import com.example.flowerpower.repositories.OrderListRepository
-import com.example.flowerpower.services.OrderListService
+import com.example.flowerpower.repositories.OrdersRepository
+import com.example.flowerpower.services.OrdersService
 import com.example.flowerpower.utils.ApplicationClass
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OrderListViewModel :
-    ViewModel() {
+class OrderListViewModel : ViewModel() {
+
     companion object {
         private val TAG: String? = OrderListViewModel::class.java.canonicalName
     }
 
-    private val orderListRepository : OrderListRepository = OrderListRepository(OrderListService.getInstance())
-    val orderList = MutableLiveData<List<Order>>()
+    private val ordersRepository : OrdersRepository = OrdersRepository(OrdersService.getInstance())
+    val orders = MutableLiveData<List<Order>>()
 
     fun getOrderList() {
-        val response = orderListRepository.getOrderList()
+        val response = ordersRepository.getOrders()
         response?.enqueue(object : Callback<List<Order>> {
             override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
-                orderList.postValue(response.body())
+                orders.postValue(response.body())
                 Log.d(TAG, ApplicationClass.instance.getString(R.string.GET_REQUEST_SUCCESSFUL))
             }
 
@@ -35,5 +34,4 @@ class OrderListViewModel :
             }
         })
     }
-
 }
