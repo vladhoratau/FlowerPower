@@ -86,8 +86,7 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
                 if (InternetUtils.isInternetConnection(context)) {
                     ordersViewModel.getOrders()
                     ToastMessage.showMessage(getString(R.string.DATA_UPDATED))
-                }
-                else {
+                } else {
                     ToastMessage.showMessage(getString(R.string.NO_INTERNET))
                 }
             }

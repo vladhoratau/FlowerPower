@@ -18,7 +18,7 @@ class OrdersViewModel : ViewModel() {
         private val TAG: String? = OrdersViewModel::class.java.canonicalName
     }
 
-    private val ordersRepository : OrdersRepository = OrdersRepository(OrdersService.getInstance())
+    private val ordersRepository: OrdersRepository = OrdersRepository(OrdersService.getInstance())
     val orders = MutableLiveData<List<Order>>()
 
     fun getOrders() {

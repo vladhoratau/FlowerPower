@@ -13,7 +13,6 @@ abstract class OrdersDatabase : RoomDatabase() {
     abstract fun getOrdersDao(): OrdersDao
 
     companion object {
-
         @Volatile
         private var INSTANCE: OrdersDatabase? = null
 
