@@ -8,21 +8,21 @@ import com.example.flowerpower.models.Order
 
 @Database(entities = [Order::class], version = 1, exportSchema = false)
 
-abstract class OrderDatabase : RoomDatabase() {
+abstract class OrdersDatabase : RoomDatabase() {
 
     abstract fun getOrdersDao(): OrdersDao
 
     companion object {
 
         @Volatile
-        private var INSTANCE: OrderDatabase? = null
+        private var INSTANCE: OrdersDatabase? = null
 
-        fun getDatabase(context: Context): OrderDatabase {
+        fun getDatabase(context: Context): OrdersDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    OrderDatabase::class.java,
-                    "order_database"
+                    OrdersDatabase::class.java,
+                    "orders"
                 ).build()
                 INSTANCE = instance
                 instance

@@ -17,8 +17,8 @@ import com.example.flowerpower.models.Status
 import com.example.flowerpower.utils.InternetUtils
 import com.example.flowerpower.utils.Navigator
 import com.example.flowerpower.utils.ToastMessage
-import com.example.flowerpower.viewmodel.DBOrderListViewModel
-import com.example.flowerpower.viewmodel.OrderListViewModel
+import com.example.flowerpower.viewmodel.DBOrdersViewModel
+import com.example.flowerpower.viewmodel.OrdersViewModel
 
 class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
@@ -35,11 +35,11 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     private var adapter = OrderListAdapter(this)
     private var orders = mutableListOf<Order>()
 
-    private val orderListViewModel: OrderListViewModel by viewModels {
+    private val ordersViewModel: OrdersViewModel by viewModels {
         ViewModelFactory()
     }
 
-    private val dbOrderListViewModel: DBOrderListViewModel by viewModels {
+    private val dbOrdersViewModel: DBOrdersViewModel by viewModels {
         ViewModelFactory()
     }
 
@@ -77,15 +77,14 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
 
             override fun afterTextChanged(p0: Editable?) {
             }
-        }
-        )
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.refresh -> {
                 if (InternetUtils.isInternetConnection(context)) {
-                    orderListViewModel.getOrderList()
+                    ordersViewModel.getOrders()
                     ToastMessage.showMessage(getString(R.string.DATA_UPDATED))
                 }
                 else {
@@ -107,18 +106,18 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
     private fun orderListUpdateObserver() {
         if (InternetUtils.isInternetConnection(context)) {
             Log.d(TAG, getString(R.string.BACKEND_DATA))
-            orderListViewModel.getOrderList()
+            ordersViewModel.getOrders()
         }
 
-        orderListViewModel.orderList.observe(viewLifecycleOwner, {
+        ordersViewModel.orders.observe(viewLifecycleOwner) {
             Log.d(TAG, getString(R.string.ORDER_LIST_UPDATED) + it + " size " + it.size)
             orders.clear()
             orders.addAll(it)
             adapter.setOrderList(orders)
-            dbOrderListViewModel.updateOrders(orders)
-        })
+            dbOrdersViewModel.updateOrders(orders)
+        }
 
-        dbOrderListViewModel.getAllDBOrders().observe(viewLifecycleOwner, {
+        dbOrdersViewModel.getOrders().observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 if (!InternetUtils.isInternetConnection(context)) {
                     adapter.setOrderList(it)
@@ -132,6 +131,6 @@ class OrderListFragment : Fragment(), OrderListAdapter.OnItemClickListener {
                     adapter.setOrderList(orders)
                 }
             }
-        })
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.example.flowerpower.utils
 
 import android.app.Application
 
-
 class ApplicationClass : Application() {
 
     companion object {
@@ -14,5 +13,4 @@ class ApplicationClass : Application() {
         super.onCreate()
         instance = this
     }
-
 }
